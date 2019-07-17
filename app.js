@@ -32,7 +32,6 @@ var lastDice;
 init(); // Initializes the application and zeroes the values
 
 
-
 /*We choose the Reroll Button ID from HTML and we create an event. 
 * We choose "click" as we want the event to activate when we click on the buton.
 * the seconds argument on the eventListener is the function we call. This one
@@ -92,115 +91,111 @@ document.querySelector(".btn-roll").addEventListener("click", function()
         * 3. Update The Round Score IF the random number was NOT a 1 *
         *************************************************************/ 
 
-//        // !== performs type coarcion
-//        if(dice !== 1)
-//            {
-//                //Add score
-//                roundScore += dice;
-//                document.querySelector("#current-" + activePlayer).textContent =  roundScore; 
-//            }
-//        else
-//            {
-//                //Next Player
-//                nextPlayer();
-//            }
+        // !== performs type coarcion
+        
+        if (dice1 == 6 && dice2 == 6)
+            {
+                scores[activePlayer] = 0
+                document.getElementById("score-" + activePlayer).textContent = 0; 
+                nextPlayer();
+            }
+        else if (!(dice1 == 1 || dice2 == 1))
+            {
+                //Add score
+                roundScore += dice1 + dice2;
+                document.querySelector("#current-" + activePlayer).textContent =  roundScore; 
+            }
+        else
+            {
+                //Next Player
+                nextPlayer();
+            }
         }
 });
 
 
+/**************
+* Button Hold *
+**************/
+document.querySelector(".btn-hold").addEventListener("click", function()
+{
+    if(gamePlaying)
+    {
+        /***************************************
+        * 1. Add CURRENT score to GLOBAL score *
+        ***************************************/
 
-//
-//
-///**************
-//* Button Hold *
-//**************/
-//document.querySelector(".btn-hold").addEventListener("click", function()
-//{
-//    if(gamePlaying)
-//    {
-//        /***************************************
-//        * 1. Add CURRENT score to GLOBAL score *
-//        ***************************************/
-//
-//        scores[activePlayer] += roundScore;
-//
-//        /*******************
-//        * 2. Update the UI *
-//        *******************/
-//
-//        document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
-//
-//        /**********************************
-//        * 3. Check if player won the game *
-//        **********************************/
-//
-//        if (scores[activePlayer] >= 20)
-//            {
-//                document.querySelector("#name-" + activePlayer).textContent = "WINNER";
-//                document.querySelector(".dice").style.display = "none";
-//                document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
-//                document.querySelector(".player-" + activePlayer + "-panel").classList.remove("active");
-//                gamePlaying = false;
-//            }
-//        else
-//            {
-//                /*****************
-//                * 4. Next Player *
-//                *****************/
-//
-//                nextPlayer();
-//            }
-//    }
-//});
-//
-//
+        scores[activePlayer] += roundScore;
+        
+        /*******************
+        * 2. Update the UI *
+        *******************/
+
+        document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
+
+        /**********************************
+        * 3. Check if player won the game *
+        **********************************/
+
+        if (scores[activePlayer] >= 20)
+            {
+                document.querySelector("#name-" + activePlayer).textContent = "WINNER";
+                document.querySelector(".dice").style.display = "none";
+                document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
+                document.querySelector(".player-" + activePlayer + "-panel").classList.remove("active");
+                gamePlaying = false;
+            }
+        else
+            {
+                /*****************
+                * 4. Next Player *
+                *****************/
+
+                nextPlayer();
+            }
+    }
+});
+
+
 ///*************
 //* Button New *
 //*************/
 //document.querySelector(".btn-new").addEventListener("click", init);
 //
 //
-//function nextPlayer()
-//{
-//    //Next player
-//    //Using ternary operator
-//    activePlayer === 0 ? activePlayer =1 : activePlayer = 0;
-//        
-//                
-//    //Reseting round score
-//    roundScore = 0;
-//            
-//    console.log("roundscore 0");
-//            
-//            //Reseting round score on web page
-//            document.getElementById("current-0").textContent = 0;
-//            document.getElementById("current-1").textContent = 0;
-//
-//            
-//            console.log("html 0");
-//            
-//            /* 
-//             * The red dot on the active player and the black font comes from the
-//             * "active" attribute in the HTML class. So we have to remove it from
-//             * player 1 and add it to player to 2
-//             */
-//            
-////            //Removes "active" attribute
-////            document.querySelector(".player-" + activePlayer + "-panel").classList.remove("active");
-////            
-////            //Adds "active" attribute
-////            document.querySelector(".player-1-panel").classList.add("active");
-//            
-//            //But when it changes to second player then ti won't change to the first
-//            //so we have to use toggle in order to change the player each time we
-//            //roll a 1
-//            
-//            document.querySelector(".player-0-panel").classList.toggle("active");
-//            document.querySelector(".player-1-panel").classList.toggle("active");
-//            
-//            document.querySelector(".dice").style.display = "none";    
-//}
+function nextPlayer()
+{
+    //Next player
+    //Using ternary operator
+    activePlayer === 0 ? activePlayer =1 : activePlayer = 0;
+        
+                
+    //Reseting round score
+    roundScore = 0;
+            
+            
+    //Reseting round score on web page
+    document.getElementById("current-0").textContent = 0;
+    document.getElementById("current-1").textContent = 0;
 
+                        
+    /* 
+     * The red dot on the active player and the black font comes from the
+     * "active" attribute in the HTML class. So we have to remove it from
+     * player 1 and add it to player to 2
+     */
+            
+            
+    //But when it changes to second player then ti won't change to the first
+    //so we have to use toggle in order to change the player each time we
+    //roll a 1
+            
+    document.querySelector(".player-0-panel").classList.toggle("active");
+    document.querySelector(".player-1-panel").classList.toggle("active");
+            
+    document.querySelector(".dice").style.display = "none"; 
+    document.getElementById("dice-2").style.display = "none";
+}
 
 
 function init()
