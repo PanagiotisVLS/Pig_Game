@@ -132,15 +132,31 @@ document.querySelector(".btn-hold").addEventListener("click", function()
         *******************/
 
         document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
+        
+        var input = document.querySelector('.final-score').value;
+        var winningScore;
+        
+        // Undefined, 0, null or "" are COERCED to false
+        //Anything else is COERCE to true
+        if(input)
+        {
+            winningScore = input;
+
+        }
+        else
+        {
+            winningScore = 100;
+        }
 
         /**********************************
         * 3. Check if player won the game *
         **********************************/
 
-        if (scores[activePlayer] >= 20)
+        if (scores[activePlayer] >= winningScore)
             {
                 document.querySelector("#name-" + activePlayer).textContent = "WINNER";
-                document.querySelector(".dice").style.display = "none";
+                document.querySelector(".dice").style.display = "none"; 
+                document.getElementById("dice-2").style.display = "none";             
                 document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
                 document.querySelector(".player-" + activePlayer + "-panel").classList.remove("active");
                 gamePlaying = false;
@@ -157,12 +173,12 @@ document.querySelector(".btn-hold").addEventListener("click", function()
 });
 
 
-///*************
-//* Button New *
-//*************/
-//document.querySelector(".btn-new").addEventListener("click", init);
-//
-//
+/*************
+* Button New *
+*************/
+document.querySelector(".btn-new").addEventListener("click", init);
+
+
 function nextPlayer()
 {
     //Next player
